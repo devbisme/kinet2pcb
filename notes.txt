@@ -1,0 +1,3 @@
+1. .nojekyll allows Github pages to scan directories whose names start with "_".
+   Remove it if you are using a Jekyll theme on web pages that are not stored
+   in _build/singlehtml.
