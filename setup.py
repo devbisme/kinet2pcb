@@ -21,7 +21,10 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [ ]
+requirements = [ 
+    "kinparse >= 0.1.2",
+    "pcbnew",
+]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -47,14 +50,14 @@ setup(
     description="Convert KiCad netlist into a PCBNEW .brd file.",
     entry_points={
         'console_scripts': [
-            'kinet2brd=kinet2brd.cli:main',
+            'kinet2brd=kinet2brd.kinet2brd:main',
         ],
     },
     install_requires=requirements,
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='kinet2brd',
+    keywords='kinet2brd KiCad EDA PCBNEW SKiDL',
     name='kinet2brd',
     packages=find_packages(include=['kinet2brd']),
     setup_requires=setup_requirements,

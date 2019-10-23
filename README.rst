@@ -6,15 +6,6 @@ kinet2brd
 .. image:: https://img.shields.io/pypi/v/kinet2brd.svg
         :target: https://pypi.python.org/pypi/kinet2brd
 
-.. image:: https://img.shields.io/travis/xesscorp/kinet2brd.svg
-        :target: https://travis-ci.org/xesscorp/kinet2brd
-
-.. image:: https://readthedocs.org/projects/kinet2brd/badge/?version=latest
-        :target: https://kinet2brd.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
-
-
 
 Convert KiCad netlist into a PCBNEW .brd file.
 
