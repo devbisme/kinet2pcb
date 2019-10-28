@@ -11,7 +11,7 @@ Convert KiCad netlist into a PCBNEW ``.kicad_pcb`` file.
 
 
 * Free software: MIT license
-* Documentation: https://xesscorp.github.io/kinet2pcb.docs/_site/index.html .
+* Documentation: https://xesscorp.github.io/kinet2pcb .
 
 
 Features
