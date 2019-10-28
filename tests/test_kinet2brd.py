@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Tests for `kinet2brd` package."""
+"""Tests for `kinet2pcb` package."""
 
 import pytest
 
 
-from kinet2brd import kinet2brd
+from kinet2pcb import kinet2pcb
 
 
 @pytest.fixture

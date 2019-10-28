@@ -112,7 +112,7 @@ class LibURIs(dict):
             self[nickname] = uri
 
 
-def kinet2brd(netlist_filename, brd_filename):
+def kinet2pcb(netlist_filename, brd_filename):
     """Create a .kicad_pcb from a KiCad netlist file."""
 
     # Get the global and local fp-lib-table file URIs.
@@ -188,7 +188,7 @@ def main():
         description="""Convert KiCad netlist into a PCBNEW .kicad_pcb file."""
     )
     parser.add_argument(
-        "--version", "-v", action="version", version="kinet2brd " + __version__
+        "--version", "-v", action="version", version="kinet2pcb " + __version__
     )
     parser.add_argument(
         "--input",
@@ -230,7 +230,7 @@ def main():
 
     args = parser.parse_args()
 
-    logger = logging.getLogger("kinet2brd")
+    logger = logging.getLogger("kinet2pcb")
     if args.debug is not None:
         log_level = logging.DEBUG + 1 - args.debug
         handler = logging.StreamHandler(sys.stdout)
@@ -261,7 +261,7 @@ def main():
                     break  # Backup done, so break out of loop.
                 index += 1  # Else keep looking for an unused backup file name.
 
-    kinet2brd(args.input, args.output)
+    kinet2pcb(args.input, args.output)
 
 
 ###############################################################################

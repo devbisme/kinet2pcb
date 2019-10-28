@@ -1,4 +1,4 @@
-Welcome to kinet2brd's documentation!
+Welcome to kinet2pcb's documentation!
 ======================================
 
 .. toctree::

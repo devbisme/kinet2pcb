@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""The setup script."""
-
 import sys
 from setuptools import setup, find_packages
 
@@ -11,7 +9,7 @@ __email__ = 'info@xess.com'
 __version__ = '0.1.0'
 
 if 'sdist' in sys.argv[1:]:
-    with open('kinet2brd/pckg_info.py','w') as f:
+    with open('kinet2pcb/pckg_info.py','w') as f:
         for name in ['__version__','__author__','__email__']:
             f.write("{} = '{}'\n".format(name,locals()[name]))
 
@@ -49,19 +47,19 @@ setup(
     description="Convert KiCad netlist into a PCBNEW .kicad_pcb file.",
     entry_points={
         'console_scripts': [
-            'kinet2brd=kinet2brd.kinet2brd:main',
+            'kinet2pcb=kinet2pcb.kinet2pcb:main',
         ],
     },
     install_requires=requirements,
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='kinet2brd KiCad EDA PCBNEW SKiDL',
-    name='kinet2brd',
-    packages=find_packages(include=['kinet2brd']),
+    keywords='kinet2pcb KiCad EDA PCBNEW SKiDL',
+    name='kinet2pcb',
+    packages=find_packages(include=['kinet2pcb']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/xesscorp/kinet2brd',
+    url='https://github.com/xesscorp/kinet2pcb',
     zip_safe=False,
 )

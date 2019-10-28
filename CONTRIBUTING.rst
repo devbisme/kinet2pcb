@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/xesscorp/kinet2brd/issues.
+Report bugs at https://github.com/xesscorp/kinet2pcb/issues.
 
 If you are reporting a bug, please include:
 
@@ -38,14 +38,14 @@ and "help wanted" is open to whoever wants to implement it.
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
-kinet2brd could always use more documentation, whether as part of the
-official kinet2brd docs, in docstrings, or even on the web in blog posts,
+kinet2pcb could always use more documentation, whether as part of the
+official kinet2pcb docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/xesscorp/kinet2brd/issues.
+The best way to send feedback is to file an issue at https://github.com/xesscorp/kinet2pcb/issues.
 
 If you are proposing a feature:
 
@@ -57,17 +57,17 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `kinet2brd` for local development.
+Ready to contribute? Here's how to set up `kinet2pcb` for local development.
 
-1. Fork the `kinet2brd` repo on GitHub.
+1. Fork the `kinet2pcb` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/kinet2brd.git
+    $ git clone git@github.com:your_name_here/kinet2pcb.git
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
-    $ mkvirtualenv kinet2brd
-    $ cd kinet2brd/
+    $ mkvirtualenv kinet2pcb
+    $ cd kinet2pcb/
     $ python setup.py develop
 
 4. Create a branch for local development::

@@ -2,9 +2,9 @@
 Usage
 =====
 
-``kinet2brd`` is mainly intended to be used as a script::
+``kinet2pcb`` is mainly intended to be used as a script::
 
-    usage: kinet2brd [-h] [--version] [--input file] [--output [file]]
+    usage: kinet2pcb [-h] [--version] [--input file] [--output [file]]
                     [--overwrite] [--nobackup] [--debug [LEVEL]]
 
     Convert KiCad netlist into a PCBNEW .kicad_pcb file.
@@ -30,12 +30,12 @@ Examples
 Assuming you've generated a KiCad netlist file called ``example.net``, then
 the following command would create a KiCad PCB file called ``example.kicad_pcb``::
 
-    kinet2brd -i example.net
+    kinet2pcb -i example.net
 
-If a files called ``example.kicad_pcb`` already exists, then ``kinet2brd`` will
+If a files called ``example.kicad_pcb`` already exists, then ``kinet2pcb`` will
 halt and not over-write the file. To override this behavior, use the ``-w`` option::
 
-    kinet2brd -i example.net -w
+    kinet2pcb -i example.net -w
 
 The above command will rename the pre-existing ``example.kicad_pcb`` file to
 ``example.kicad_pcb.bak``.
@@ -45,10 +45,10 @@ Preventing Disasters
 ----------------------------
 
 A lot of work goes into creating a PCB.
-For this reason, ``kinet2brd`` makes a backup of any ``.kicad_pcb`` file it is about to overwrite
+For this reason, ``kinet2pcb`` makes a backup of any ``.kicad_pcb`` file it is about to overwrite
 (using file names such as ``example.1.kicad_pcb``, ``example.2.kicad_pcb``, etc.).
 You can turn off this behavior using the ``--nobackup`` option.
 
-In addition, if ``kinet2brd`` would overwrite an existing ``.kicad_pcb`` file
+In addition, if ``kinet2pcb`` would overwrite an existing ``.kicad_pcb`` file
 and the ``--nobackup`` option is enabled, then you must also use the ``--overwrite`` option
 or the operation will be aborted.

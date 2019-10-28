@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
-SPHINXPROJ    = kinet2brd
+SPHINXPROJ    = kinet2pcb
 SOURCEDIR     = .
 BUILDDIR      = _build
 

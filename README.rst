@@ -1,17 +1,17 @@
 =========
-kinet2brd
+kinet2pcb
 =========
 
 
-.. image:: https://img.shields.io/pypi/v/kinet2brd.svg
-        :target: https://pypi.python.org/pypi/kinet2brd
+.. image:: https://img.shields.io/pypi/v/kinet2pcb.svg
+        :target: https://pypi.python.org/pypi/kinet2pcb
 
 
 Convert KiCad netlist into a PCBNEW ``.kicad_pcb`` file.
 
 
 * Free software: MIT license
-* Documentation: https://xesscorp.github.io/kinet2brd.docs/_site/index.html .
+* Documentation: https://xesscorp.github.io/kinet2pcb.docs/_site/index.html .
 
 
 Features

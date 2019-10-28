@@ -10,6 +10,6 @@ KiCad ``bin`` directory like so:
 
 .. code-block:: console
 
-    $ pip install kinet2brd
+    $ pip install kinet2pcb
 
-This is the preferred method to install ``kinet2brd``, as it will always install the most recent stable release.
+This is the preferred method to install ``kinet2pcb``, as it will always install the most recent stable release.

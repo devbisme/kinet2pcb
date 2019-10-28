@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=kinet2brd
+set SPHINXPROJ=kinet2pcb
 
 if "%1" == "" goto help
 

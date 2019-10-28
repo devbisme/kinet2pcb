@@ -1,4 +1,4 @@
-* kinet2brd version:
+* kinet2pcb version:
 * Python version:
 * Operating System:
 
