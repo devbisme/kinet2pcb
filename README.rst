@@ -7,7 +7,7 @@ kinet2brd
         :target: https://pypi.python.org/pypi/kinet2brd
 
 
-Convert KiCad netlist into a PCBNEW .brd file.
+Convert KiCad netlist into a PCBNEW ``.kicad_pcb`` file.
 
 
 * Free software: MIT license
@@ -17,7 +17,7 @@ Convert KiCad netlist into a PCBNEW .brd file.
 Features
 --------
 
-* TODO
+* Converts a KiCad netlist file into a ``.kicad_pcb`` file that can be edited with PCBNEW.
 
 Credits
 -------

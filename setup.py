@@ -23,7 +23,6 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [ 
     "kinparse >= 0.1.2",
-    "pcbnew",
 ]
 
 setup_requirements = ['pytest-runner', ]
@@ -47,7 +46,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Convert KiCad netlist into a PCBNEW .brd file.",
+    description="Convert KiCad netlist into a PCBNEW .kicad_pcb file.",
     entry_points={
         'console_scripts': [
             'kinet2brd=kinet2brd.kinet2brd:main',
