@@ -18,7 +18,7 @@ from .pckg_info import __version__
 
 def rmv_quotes(s):
     """Remove starting and ending quotes from a string."""
-    if not isinstance(s, basestring):
+    if not isinstance(s, str):
         return s
 
     mtch = re.match(r'^\s*"(.*)"\s*$', s)
