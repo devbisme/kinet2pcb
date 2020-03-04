@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
+from past.builtins import basestring
 import argparse
 import logging
 import os
@@ -31,8 +32,8 @@ def rmv_quotes(s):
     return s
 
 
-def get_global_fp_lib_table_dir():
-    """Get the path to where the global fp-lib-table file is found."""
+def get_global_fp_lib_table_fn():
+    """Get the full path of the global fp-lib-table file or return an empty string."""
 
     paths = (
         "$HOME/.config/kicad",
@@ -40,28 +41,40 @@ def get_global_fp_lib_table_dir():
         "%APPDATA%/kicad",
         "$HOME/Library/Preferences/kicad",
         "~/Library/Preferences/kicad",
+        "%ProgramFiles%/KiCad/share/kicad/template",
+        "/usr/share/kicad/template",
     )
     for path in paths:
         path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
-        if os.path.lexists(path):
-            return path
+        fp_lib_table_fn = os.path.join(path, 'fp-lib-table')
+        if os.path.exists(fp_lib_table_fn):
+            return fp_lib_table_fn
     return ""
 
 
 class LibURIs(dict):
     """Dict for storing library URIs from all directories in fp-lib-table file."""
 
-    def __init__(self, *args):
+    def __init__(self, *fp_lib_table_fns):
         super(self.__class__, self).__init__()
-        for fp_lib_table_dir in args:
-            self.load(fp_lib_table_dir)
 
-    def load(self, fp_lib_table_dir):
+        # Set KISYSMOD to a default value if it isn't already defined.
+        if 'KISYSMOD' not in os.environ.keys():
+            if os.name == 'nt':
+                os.environ['KISYSMOD'] = '%ProgramFiles%/KiCad/share/kicad/modules'
+            else:
+                os.environ['KISYSMOD'] = '/usr/share/kicad/modules'
+
+        # Load URIs for libraries found in each library table file.
+        for fp_lib_table_fn in fp_lib_table_fns:
+            self.load(fp_lib_table_fn)
+
+    def load(self, fp_lib_table_fn):
         """Load cache with URIs for libraries in fp-lib-table file."""
 
         # Read contents of footprint library file into a single string.
         try:
-            with open(os.path.join(fp_lib_table_dir, "fp-lib-table")) as fp:
+            with open(fp_lib_table_fn) as fp:
                 tbl = fp.read()
         except IOError:
             return
@@ -116,11 +129,9 @@ def kinet2pcb(netlist_filename, brd_filename):
     """Create a .kicad_pcb from a KiCad netlist file."""
 
     # Get the global and local fp-lib-table file URIs.
-    fp_libs = LibURIs(get_global_fp_lib_table_dir(), ".")
+    fp_libs = LibURIs(get_global_fp_lib_table_fn(), os.path.join(".", "fp-lib-table"))
 
-    # Create a blank KiCad PCB file based on the name of the netlist file.
-    base_filename = os.path.splitext(netlist_filename)[0]
-    brd_filename = base_filename + ".kicad_pcb"
+    # Create a blank KiCad PCB.
     brd = pcbnew.BOARD()
 
     # Parse the netlist.
@@ -139,11 +150,15 @@ def kinet2pcb(netlist_filename, brd_filename):
         fp = pcbnew.FootprintLoad(lib_uri, fp_name)
 
         # Set the module parameters based on the part data.
+        #import pdb; pdb.set_trace()
         fp.SetParent(brd)
         fp.SetReference(part.ref)
         fp.SetValue(part.value)
         # fp.SetTimeStamp(part.sheetpath.tstamps)
-        fp.SetPath(part.sheetpath.names)
+        try:
+            fp.SetPath(part.sheetpath.names)
+        except AttributeError:
+            pass
 
         # Add the module to the PCB.
         brd.Add(fp)
