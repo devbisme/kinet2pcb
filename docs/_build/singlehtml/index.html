@@ -1,19 +1,17 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>kinet2pcb 0.1.0 documentation</title>
+    <meta charset="utf-8" />
+    <title>kinet2pcb 0.1.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -40,13 +38,13 @@
 <a class="reference external image-reference" href="https://pypi.python.org/pypi/kinet2pcb"><img alt="https://img.shields.io/pypi/v/kinet2pcb.svg" src="https://img.shields.io/pypi/v/kinet2pcb.svg" /></a>
 <p>Convert KiCad netlist into a PCBNEW <code class="docutils literal notranslate"><span class="pre">.kicad_pcb</span></code> file.</p>
 <ul class="simple">
-<li>Free software: MIT license</li>
-<li>Documentation: <a class="reference external" href="https://xesscorp.github.io/kinet2pcb.docs/_site/index.html">https://xesscorp.github.io/kinet2pcb.docs/_site/index.html</a> .</li>
+<li><p>Free software: MIT license</p></li>
+<li><p>Documentation: <a class="reference external" href="https://xesscorp.github.io/kinet2pcb">https://xesscorp.github.io/kinet2pcb</a> .</p></li>
 </ul>
 <div class="section" id="features">
 <h3>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Converts a KiCad netlist file into a <code class="docutils literal notranslate"><span class="pre">.kicad_pcb</span></code> file that can be edited with PCBNEW.</li>
+<li><p>Converts a KiCad netlist file into a <code class="docutils literal notranslate"><span class="pre">.kicad_pcb</span></code> file that can be edited with PCBNEW.</p></li>
 </ul>
 </div>
 <div class="section" id="credits">
@@ -124,9 +122,9 @@ helps, and credit will always be given.</p>
 <p>Report bugs at <a class="reference external" href="https://github.com/xesscorp/kinet2pcb/issues">https://github.com/xesscorp/kinet2pcb/issues</a>.</p>
 <p>If you are reporting a bug, please include:</p>
 <ul class="simple">
-<li>Your operating system name and version.</li>
-<li>Any details about your local setup that might be helpful in troubleshooting.</li>
-<li>Detailed steps to reproduce the bug.</li>
+<li><p>Your operating system name and version.</p></li>
+<li><p>Any details about your local setup that might be helpful in troubleshooting.</p></li>
+<li><p>Detailed steps to reproduce the bug.</p></li>
 </ul>
 </div>
 <div class="section" id="fix-bugs">
@@ -150,10 +148,10 @@ articles, and such.</p>
 <p>The best way to send feedback is to file an issue at <a class="reference external" href="https://github.com/xesscorp/kinet2pcb/issues">https://github.com/xesscorp/kinet2pcb/issues</a>.</p>
 <p>If you are proposing a feature:</p>
 <ul class="simple">
-<li>Explain in detail how it would work.</li>
-<li>Keep the scope as narrow as possible, to make it easier to implement.</li>
-<li>Remember that this is a volunteer-driven project, and that contributions
-are welcome :)</li>
+<li><p>Explain in detail how it would work.</p></li>
+<li><p>Keep the scope as narrow as possible, to make it easier to implement.</p></li>
+<li><p>Remember that this is a volunteer-driven project, and that contributions
+are welcome :)</p></li>
 </ul>
 </div>
 </div>
@@ -161,45 +159,43 @@ are welcome :)</li>
 <h3>Get Started!<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h3>
 <p>Ready to contribute? Here’s how to set up <cite>kinet2pcb</cite> for local development.</p>
 <ol class="arabic">
-<li><p class="first">Fork the <cite>kinet2pcb</cite> repo on GitHub.</p>
-</li>
-<li><p class="first">Clone your fork locally:</p>
+<li><p>Fork the <cite>kinet2pcb</cite> repo on GitHub.</p></li>
+<li><p>Clone your fork locally:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:your_name_here/kinet2pcb.git
 </pre></div>
 </div>
 </li>
-<li><p class="first">Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:</p>
+<li><p>Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ mkvirtualenv kinet2pcb
 $ <span class="nb">cd</span> kinet2pcb/
 $ python setup.py develop
 </pre></div>
 </div>
 </li>
-<li><p class="first">Create a branch for local development:</p>
+<li><p>Create a branch for local development:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git checkout -b name-of-your-bugfix-or-feature
 </pre></div>
 </div>
 <p>Now you can make your changes locally.</p>
 </li>
-<li><p class="first">Commit your changes and push your branch to GitHub:</p>
+<li><p>Commit your changes and push your branch to GitHub:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git add .
 $ git commit -m <span class="s2">&quot;Your detailed description of your changes.&quot;</span>
 $ git push origin name-of-your-bugfix-or-feature
 </pre></div>
 </div>
 </li>
-<li><p class="first">Submit a pull request through the GitHub website.</p>
-</li>
+<li><p>Submit a pull request through the GitHub website.</p></li>
 </ol>
 </div>
 <div class="section" id="pull-request-guidelines">
 <h3>Pull Request Guidelines<a class="headerlink" href="#pull-request-guidelines" title="Permalink to this headline">¶</a></h3>
 <p>Before you submit a pull request, check that it meets these guidelines:</p>
 <ol class="arabic simple">
-<li>If the pull request adds functionality, the docs should be updated. Put
+<li><p>If the pull request adds functionality, the docs should be updated. Put
 your new functionality into a function with a docstring, and add the
-feature to the list in README.rst.</li>
-<li>The pull request should work for Python 2.7, and &gt;=3.6</li>
+feature to the list in README.rst.</p></li>
+<li><p>The pull request should work for Python 2.7, and &gt;=3.6</p></li>
 </ol>
 </div>
 </div>
@@ -208,7 +204,7 @@ feature to the list in README.rst.</li>
 <div class="section" id="development-lead">
 <h3>Development Lead<a class="headerlink" href="#development-lead" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>XESS Corp. &lt;<a class="reference external" href="mailto:info&#37;&#52;&#48;xess&#46;com">info<span>&#64;</span>xess<span>&#46;</span>com</a>&gt;</li>
+<li><p>XESS Corp. &lt;<a class="reference external" href="mailto:info&#37;&#52;&#48;xess&#46;com">info<span>&#64;</span>xess<span>&#46;</span>com</a>&gt;</p></li>
 </ul>
 </div>
 <div class="section" id="contributors">
@@ -219,9 +215,16 @@ feature to the list in README.rst.</li>
 <span id="document-history"></span><div class="section" id="history">
 <h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
-<h3>0.1.0 (2019-10-28)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>0.1.1 (2019-03-09)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>First release on PyPI.</li>
+<li><p>Now runs under Python 2 &amp; 3.</p></li>
+<li><p>Bumped version to 0.1.1.</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>0.1.0 (2019-10-28)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>First release on PyPI.</p></li>
 </ul>
 </div>
 </div>
@@ -230,9 +233,9 @@ feature to the list in README.rst.</li>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 
@@ -286,7 +289,7 @@ feature to the list in README.rst.</li>
       &copy;2019, XESS Corp..
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
