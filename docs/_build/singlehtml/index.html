@@ -226,8 +226,13 @@ feature to the list in README.rst.</p></li>
 <section id="id1">
 <h3>0.1.2 (2021-05-18)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>The kinet2pcb() function will now generate a KiCad PCB file when given
+<li><p>The <code class="docutils literal notranslate"><span class="pre">kinet2pcb()</span></code> function will now generate a KiCad PCB file when given
 a netlist file name, a PyParsing object, or a SKiDL Circuit object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kinet2pcb</span></code> can now be installed in the default Python interpreter on
+a system and it will look in <code class="docutils literal notranslate"><span class="pre">/usr/lib/python3/dist-packages</span></code> to find
+the <code class="docutils literal notranslate"><span class="pre">pcbnew</span></code> module installed by KiCad.  If the <code class="docutils literal notranslate"><span class="pre">pcbnew</span></code> module
+is not found there, add the correct location to the <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>
+environment variable.</p></li>
 </ul>
 </section>
 <section id="id2">
