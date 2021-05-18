@@ -12,6 +12,7 @@ import sys
 
 import kinparse
 
+sys.path.append('/usr/lib/python3/dist-packages')
 import pcbnew
 
 from .pckg_info import __version__
@@ -125,7 +126,7 @@ class LibURIs(dict):
             self[nickname] = uri
 
 
-def kinet2pcb(netlist_filename, brd_filename):
+def kinet2pcb(netlist_origin, brd_filename):
     """Create a .kicad_pcb from a KiCad netlist file."""
 
     # Get the global and local fp-lib-table file URIs.
@@ -134,8 +135,13 @@ def kinet2pcb(netlist_filename, brd_filename):
     # Create a blank KiCad PCB.
     brd = pcbnew.BOARD()
 
-    # Parse the netlist.
-    netlist = kinparse.parse_netlist(netlist_filename)
+    # Get the netlist.
+    if isinstance(netlist_origin, type('')):
+        # Parse the netlist into an object if given a file name string.
+        netlist = kinparse.parse_netlist(netlist_origin)
+    else:
+        # otherwise, the netlist is already an object that can be processed directly.
+        netlist = netlist_origin
 
     # Add the components in the netlist to the PCB.
     for part in netlist.parts:
