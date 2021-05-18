@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 __author__ = 'XESS Corp.'
 __email__ = 'info@xess.com'
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 if 'sdist' in sys.argv[1:]:
     with open('kinet2pcb/pckg_info.py','w') as f:

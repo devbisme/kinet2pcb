@@ -2,7 +2,8 @@
 Usage
 =====
 
-``kinet2pcb`` is mainly intended to be used as a script::
+``kinet2pcb`` can be used as a module to provide other scripts with the ability
+to create KiCad PCB files, but it is mainly intended to serve as its own stand-alone utility::
 
     usage: kinet2pcb [-h] [--version] [--input file] [--output [file]]
                     [--overwrite] [--nobackup] [--debug [LEVEL]]
