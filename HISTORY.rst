@@ -2,6 +2,13 @@
 History
 =======
 
+0.1.3 (2021-05-19)
+------------------
+
+* The parts in the PCB are now given a non-overlapping arrangement
+  grouped according to their hierarchical nesting.
+
+
 0.1.2 (2021-05-18)
 ------------------
 
