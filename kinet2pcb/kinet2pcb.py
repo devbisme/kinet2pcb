@@ -157,12 +157,15 @@ def kinet2pcb(netlist_origin, brd_filename):
         fp = pcbnew.FootprintLoad(lib_uri, fp_name)
 
         # Set the module parameters based on the part data.
-        #import pdb; pdb.set_trace()
         fp.SetParent(brd)
         fp.SetReference(part.ref)
         fp.SetValue(part.value)
         # fp.SetTimeStamp(part.sheetpath.tstamps)
         try:
+            # Newer PCBNEW API.
+            fp.SetPath(pcbnew.KIID_PATH(part.sheetpath.names))
+        except TypeError:
+            # Older PCBNEW API.
             fp.SetPath(part.sheetpath.names)
         except AttributeError:
             pass
@@ -184,8 +187,14 @@ def kinet2pcb(netlist_origin, brd_filename):
         for pin in net.pins:
 
             # Find the PCB module pad for the current part pin.
-            module = brd.FindModuleByReference(pin.ref)
-            pad = module.FindPadByName(pin.num)
+            try:
+                # Newer PCBNEW API.
+                module = brd.FindFootprintByReference(pin.ref)
+                pad = module.FindPadByNumber(pin.num)
+            except AttributeError:
+                # Older PCBNEW API.
+                module = brd.FindModuleByReference(pin.ref)
+                pad = module.FindPadByName(pin.num)
 
             # Connect the pad to the PCB net.
             cnct.Add(pad)
