@@ -18,6 +18,8 @@ import hierplace
 
 from .pckg_info import __version__
 
+# Global logger.
+logger = logging.getLogger("kinet2pcb")
 
 def rmv_quotes(s):
     """Remove starting and ending quotes from a string."""
@@ -51,6 +53,8 @@ def get_global_fp_lib_table_fn():
         fp_lib_table_fn = os.path.join(path, 'fp-lib-table')
         if os.path.exists(fp_lib_table_fn):
             return fp_lib_table_fn
+
+    logger.warning("Unable to find global fp-lib-table file.")
     return ""
 
 
@@ -155,6 +159,10 @@ def kinet2pcb(netlist_origin, brd_filename):
 
         # Create a module from the footprint file.
         fp = pcbnew.FootprintLoad(lib_uri, fp_name)
+        if not fp:
+            # Could not find footprint so give warning and skip to next part.
+            logger.warning("Unable to find footprint {fp_name} in {lib_uri}".format(**locals()))
+            continue
 
         # Set the module parameters based on the part data.
         fp.SetParent(brd)
@@ -187,18 +195,22 @@ def kinet2pcb(netlist_origin, brd_filename):
         for pin in net.pins:
 
             # Find the PCB module pad for the current part pin.
+            pad = None
             try:
                 # Newer PCBNEW API.
                 module = brd.FindFootprintByReference(pin.ref)
-                pad = module.FindPadByNumber(pin.num)
+                if module:
+                    pad = module.FindPadByNumber(pin.num)
             except AttributeError:
                 # Older PCBNEW API.
                 module = brd.FindModuleByReference(pin.ref)
-                pad = module.FindPadByName(pin.num)
+                if module:
+                    pad = module.FindPadByName(pin.num)
 
             # Connect the pad to the PCB net.
-            cnct.Add(pad)
-            pad.SetNet(pcb_net)
+            if pad:
+                cnct.Add(pad)
+                pad.SetNet(pcb_net)
 
     # Recalculate the PCB part and net data.
     brd.BuildListOfNets()
@@ -264,7 +276,6 @@ def main():
 
     args = parser.parse_args()
 
-    logger = logging.getLogger("kinet2pcb")
     if args.debug is not None:
         log_level = logging.DEBUG + 1 - args.debug
         handler = logging.StreamHandler(sys.stdout)
