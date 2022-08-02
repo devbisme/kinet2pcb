@@ -90,7 +90,7 @@ class LibURIs(dict):
             r"\(\s*lib\s* .*? \)\)", tbl, flags=re.IGNORECASE | re.VERBOSE | re.DOTALL
         )
 
-        # Add the footprint modules found in each enabled KiCad libray.
+        # Add the footprint modules found in each enabled KiCad library.
         for lib in libs:
 
             # Skip disabled libraries.
@@ -128,14 +128,65 @@ class LibURIs(dict):
             # Expand variables and ~ in the URI.
             uri = os.path.expandvars(os.path.expanduser(uri))
 
+            if nickname in self:
+                print(f"Overwriting {nickname}:{self[nickname]} with {nickname}:{uri}")
             self[nickname] = uri
 
 
-def kinet2pcb(netlist_origin, brd_filename):
-    """Create a .kicad_pcb from a KiCad netlist file."""
+def get_user_lib_uris(fp_lib_dirs):
+    """Return a dict of .pretty footprint library nicknames and their absolute directory names.
 
-    # Get the global and local fp-lib-table file URIs.
+    Args:
+        fp_lib_dirs (list): List of directories to search for footprint libraries.
+
+    Returns:
+        Dictionary with library nicknames as keys and library directories as values.
+    """
+
+    def add_lib(dir):
+        """Add a directory as a footprint library if it ends with ".pretty"."""
+
+        # Get the extension of the directory name.
+        _, basename = os.path.split(dir)
+        base, ext = os.path.splitext(basename)
+
+        if ext.lower() == ".pretty":
+            # Add directory using the base of the file name as the library nickname.
+            user_lib_uris[base] = dir
+            return True  # Directory was added as a footprint library.
+        
+        return False # Directory was not a footprint library.
+
+    user_lib_uris = dict()
+
+    for dir in fp_lib_dirs:
+
+        # Fully expand the directory path.
+        dir = os.path.abspath(os.path.expandvars(os.path.expanduser(dir)))
+
+        if not add_lib(dir):
+            # If the dir wasn't a footprint library, then see if it contains
+            # any footprint libraries and add those.
+            for subdir in os.listdir(dir):
+                add_lib(os.path.join(dir, subdir))
+
+    return user_lib_uris
+
+
+def kinet2pcb(netlist_origin, brd_filename, fp_lib_dirs=None):
+    """Create a .kicad_pcb from a KiCad netlist file.
+
+    Args:
+        netlist_origin (netlist filename or Circuit object): Netlist for circuit.
+        brd_filename (str): Name of file to hold KiCad PCB.
+        user_lib_dirs (list, optional): List of footprint library directories. Defaults to None.
+    """
+
+    # Get the global and local fp-lib-table footprint library URIs.
     fp_libs = LibURIs(get_global_fp_lib_table_fn(), os.path.join(".", "fp-lib-table"))
+
+    # Add the footprint libraries from user-supplied directories.
+    fp_libs.update(get_user_lib_uris(fp_lib_dirs))
 
     # Create a blank KiCad PCB.
     brd = pcbnew.BOARD()
@@ -265,6 +316,14 @@ def main():
             (Default is to make backup files.)""",
     )
     parser.add_argument(
+        "--libraries",
+        "-l",
+        nargs="+",
+        type=str,
+        metavar="footprint_dir",
+        help="Specify one or more directories containing .pretty footprint libraries."
+    )
+    parser.add_argument(
         "--debug",
         "-d",
         nargs="?",
@@ -306,7 +365,7 @@ def main():
                     break  # Backup done, so break out of loop.
                 index += 1  # Else keep looking for an unused backup file name.
 
-    kinet2pcb(args.input, args.output)
+    kinet2pcb(args.input, args.output, args.libraries)
 
 
 ###############################################################################
