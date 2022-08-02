@@ -5,8 +5,8 @@ Usage
 ``kinet2pcb`` can be used as a module to provide other scripts with the ability
 to create KiCad PCB files, but it is mainly intended to serve as its own stand-alone utility::
 
-    usage: kinet2pcb [-h] [--version] [--input file] [--output [file]]
-                    [--overwrite] [--nobackup] [--debug [LEVEL]]
+    usage: kinet2pcb [-h] [--version] [--input file] [--output [file]] [--overwrite] [--nobackup]
+                    [--libraries footprint_dir [footprint_dir ...]] [--debug [LEVEL]]
 
     Convert KiCad netlist into a PCBNEW .kicad_pcb file.
 
@@ -18,11 +18,11 @@ to create KiCad PCB files, but it is mainly intended to serve as its own stand-a
     --output [file], -o [file]
                             Output file for storing KiCad board.
     --overwrite, -w       Allow overwriting of an existing board file.
-    --nobackup, -nb       Do *not* create backups before modifying files.
-                            (Default is to make backup files.)
+    --nobackup, -nb       Do *not* create backups before modifying files. (Default is to make backup files.)
+    --libraries footprint_dir [footprint_dir ...], -l footprint_dir [footprint_dir ...]
+                            Specify one or more directories containing .pretty footprint libraries.
     --debug [LEVEL], -d [LEVEL]
                             Print debugging info. (Larger LEVEL means more info.)
-
 
 -----------
 Examples
@@ -40,6 +40,17 @@ halt and not over-write the file. To override this behavior, use the ``-w`` opti
 
 The above command will rename the pre-existing ``example.kicad_pcb`` file to
 ``example.kicad_pcb.bak``.
+
+If you have one or more libraries of part footprints that are not listed in your
+KiCad ``fp-lib-tables`` file, you can specify them on the command line like so::
+
+    kinet2pcb -i example.net --libraries /my/path/to/lib_1.pretty /my/path/to/lib2.pretty
+
+If you have a lot of libraries that are all stored in a single directory, then
+you can shorten the command by just listing the parent directory:
+
+    kinet2pcb -i example.net --libraries /my/path/to
+
 
 ----------------------------
 Preventing Disasters

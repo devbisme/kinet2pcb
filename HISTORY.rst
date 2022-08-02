@@ -2,6 +2,12 @@
 History
 =======
 
+1.1.0 (2022-08-02)
+------------------
+
+* Added `--libraries` command-line option to specify footprint library directories.
+
+
 1.0.1 (2022-06-30)
 ------------------
 
