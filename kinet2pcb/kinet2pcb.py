@@ -36,6 +36,19 @@ def rmv_quotes(s):
     return s
 
 
+def to_list(x):
+    """
+    Return x if it is already a list, return a list containing x if x is a scalar unless
+    x is None in which case return an empty list.
+    """
+    if x is None:
+        # Return empty list if x is None.
+        return []
+    if isinstance(x, (list, tuple)):
+        return x  # Already a list, so just return it.
+    return [x]  # Wasn't a list, so make it into one.
+
+
 def get_global_fp_lib_table_fn():
     """Get the full path of the global fp-lib-table file or return an empty string."""
 
@@ -129,7 +142,7 @@ class LibURIs(dict):
             uri = os.path.expandvars(os.path.expanduser(uri))
 
             if nickname in self:
-                print(f"Overwriting {nickname}:{self[nickname]} with {nickname}:{uri}")
+                print("Overwriting {nickname}:{self[nickname]} with {nickname}:{uri}".format(**locals()))
             self[nickname] = uri
 
 
@@ -137,7 +150,7 @@ def get_user_lib_uris(fp_lib_dirs):
     """Return a dict of .pretty footprint library nicknames and their absolute directory names.
 
     Args:
-        fp_lib_dirs (list): List of directories to search for footprint libraries.
+        fp_lib_dirs (list/str): Single or list of directory paths to search for footprint libraries.
 
     Returns:
         Dictionary with library nicknames as keys and library directories as values.
@@ -159,7 +172,7 @@ def get_user_lib_uris(fp_lib_dirs):
 
     user_lib_uris = dict()
 
-    for dir in fp_lib_dirs:
+    for dir in to_list(fp_lib_dirs):
 
         # Fully expand the directory path.
         dir = os.path.abspath(os.path.expandvars(os.path.expanduser(dir)))
