@@ -255,8 +255,16 @@ def kinet2pcb(netlist_origin, brd_filename, fp_lib_dirs=None):
         # Add the net to the PCB.
         brd.Add(pcb_net)
 
+        # Get list of pins connected to net.
+        try:
+            # When handling a SKiDL Net object.
+            pins = net.get_pins()
+        except TypeError:
+            # When handling a ParseResults object.
+            pins = net.pins
+
         # Connect the part pins on the netlist net to the PCB net.
-        for pin in net.pins:
+        for pin in pins:
 
             # Find the PCB module pad for the current part pin.
             pad = None
