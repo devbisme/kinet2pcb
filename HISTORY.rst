@@ -2,6 +2,12 @@
 History
 =======
 
+1.1.1 (2023-09-10)
+------------------
+
+* `net.get_pins()` is now used when a SKiDL Circuit object is used as the input for generating a PCB.
+
+
 1.1.0 (2022-08-13)
 ------------------
 
