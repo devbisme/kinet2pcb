@@ -186,29 +186,6 @@ def get_user_lib_uris(fp_lib_dirs):
     return user_lib_uris
 
 
-def connect_all_pads_of_same_number_to_net(module: pcbnew.FOOTPRINT, pin_num: int, pcb_net: pcbnew.NETINFO_ITEM) -> list:
-    """
-    Connect all pads in a part with the same pad name to the given net. Iterates through all pads of the same name.
-    :param pcbnew.FOOTPRINT module: Footprint to connect one pin of
-    :param int pin_num: Name of pin in footprint
-    :param pcbnew.NETINFO_ITEM: Net to connect
-    :returns list pad_list: List of pads, add this to the board connectivity
-    """
-    # Find the PCB module pad for the current part pin.
-    pad = None
-    # Connect the pad to the PCB net. Iterate through all pads of same name
-    pad_list = []
-
-    while True:
-        pad = module.FindPadByNumber(pin_num, pad)
-        if pad:
-            pad_list.append(pad)
-            pad.SetNet(pcb_net)
-        else:
-            break  #  Exceeded list of pads of this name, exit
-    return pad_list
-
-
 def kinet2pcb(netlist_origin, brd_filename, fp_lib_dirs=None):
     """Create a .kicad_pcb from a KiCad netlist file.
 
@@ -290,21 +267,28 @@ def kinet2pcb(netlist_origin, brd_filename, fp_lib_dirs=None):
         for pin in pins:
             try:
                 # Newer PCBNEW API.
+                # Find the PCB footprint for the current pin and then connect all pads
+                # with that number to the net.
                 module = brd.FindFootprintByReference(pin.ref)
+                if module:
+                    pad = None
+                    while True:
+                        pad = module.FindPadByNumber(pin.num, pad)
+                        if pad:
+                            cnct.Add(pad)
+                            pad.SetNet(pcb_net)
+                        else:
+                            break # Done with all pads for this pin number.
+
             except AttributeError:
                 # Older PCBNEW API.
+                # Find the PCB module for the current pin and then connect its pad to the net.
                 module = brd.FindModuleByReference(pin.ref)
-
-            try:
-                pads = connect_all_pads_of_same_number_to_net(module=module, pin_num=pin.num, pcb_net=pcb_net)
-                for pad in pads:
-                    cnct.Add(pad)
-            except NameError:
-                #  module not found from either APIs
-                raise
-
-
-
+                if module:
+                    pad = module.FindPadByName(pin.num)
+                    if pad:
+                        cnct.Add(pad)
+                        pad.SetNet(pcb_net)
 
     # Recalculate the PCB part and net data.
     brd.BuildListOfNets()
