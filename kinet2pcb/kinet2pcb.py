@@ -232,6 +232,7 @@ def kinet2pcb(netlist_origin, brd_filename, fp_lib_dirs=None):
         fp.SetParent(brd)
         fp.SetReference(part.ref)
         fp.SetValue(part.value)
+        fp.SetFPIDAsString(part.footprint)
         # fp.SetTimeStamp(part.sheetpath.tstamps)
         try:
             # Newer PCBNEW API.
