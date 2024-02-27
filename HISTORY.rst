@@ -2,6 +2,14 @@
 History
 =======
 
+1.1.2 (2024-02-26)
+------------------
+
+* Added FPID setting to part, otherwise only the fp_name and not the fp_lib appears in the final board.
+* Added iterator to connect all pads of the same number to a given net. This mimics the behavior of the GUI editor.
+* Added Python 3.12 to test environments.
+
+
 1.1.1 (2023-09-10)
 ------------------
 
