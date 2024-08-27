@@ -3,4 +3,4 @@
 """Top-level package for kinet2pcb."""
 
 from .kinet2pcb import *
-from .pckg_info import *
+from .pckg_info import __version__
