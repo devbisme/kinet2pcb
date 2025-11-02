@@ -1,3 +1,3 @@
-__version__ = '1.1.2'
+__version__ = '1.1.3'
 __author__ = 'Dave Vandenbout'
-__email__ = 'devb@xess.com'
+__email__ = 'dave@vdb.name'
