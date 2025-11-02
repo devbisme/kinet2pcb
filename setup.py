@@ -20,7 +20,7 @@ with open("HISTORY.rst") as history_file:
     history = history_file.read()
 
 requirements = [
-    "kinparse >= 0.1.2",
+    "simp_sexp",
     "hierplace",
 ]
 
@@ -42,7 +42,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Operating System :: OS Independent",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
     ],
@@ -59,6 +58,7 @@ setup(
     keywords="kinet2pcb KiCad EDA PCBNEW SKiDL",
     name="kinet2pcb",
     packages=find_packages(include=["kinet2pcb"]),
+    python_requires='>=3.6',
     setup_requires=setup_requirements,
     test_suite="tests",
     tests_require=test_requirements,
