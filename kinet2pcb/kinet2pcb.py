@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-from past.builtins import basestring
 import argparse
 import logging
 import os
@@ -10,7 +9,7 @@ import re
 import shutil
 import sys
 
-import kinparse
+import simp_sexp
 
 if os.name == "posix":
     sys.path.append('/usr/lib/python3/dist-packages')
@@ -31,7 +30,7 @@ logger = logging.getLogger("kinet2pcb")
 
 def rmv_quotes(s):
     """Remove starting and ending quotes from a string."""
-    if not isinstance(s, basestring):
+    if not isinstance(s, str):
         return s
 
     mtch = re.match(r'^\s*"(.*)"\s*$', s)
@@ -60,6 +59,7 @@ def to_list(x):
 def get_global_fp_lib_table_fn():
     """Get the full path of the global fp-lib-table file or return an empty string."""
 
+    kicad_versions = ("9.0", "8.0", "7.0", "6.0", "5.0", "")
     paths = (
         "$HOME/.config/kicad",
         "~/.config/kicad",
@@ -69,11 +69,12 @@ def get_global_fp_lib_table_fn():
         "%ProgramFiles%/KiCad/share/kicad/template",
         "/usr/share/kicad/template",
     )
-    for path in paths:
-        path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
-        fp_lib_table_fn = os.path.join(path, 'fp-lib-table')
-        if os.path.exists(fp_lib_table_fn):
-            return fp_lib_table_fn
+    for version in kicad_versions:
+        for path in paths:
+            path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
+            fp_lib_table_fn = os.path.join(path, version, 'fp-lib-table')
+            if os.path.exists(fp_lib_table_fn):
+                return fp_lib_table_fn
 
     logger.warning("Unable to find global fp-lib-table file.")
     return ""
@@ -194,6 +195,87 @@ def get_user_lib_uris(fp_lib_dirs):
     return user_lib_uris
 
 
+class NetlistPart:
+    """Simple container for netlist part information."""
+    def __init__(self, ref, value, footprint, sheetpath=None):
+        self.ref = ref
+        self.value = value
+        self.footprint = footprint
+        self.sheetpath = sheetpath or SimpleNamespace(names="")
+
+class NetlistPin:
+    """Simple container for netlist pin information."""
+    def __init__(self, ref, num):
+        self.ref = ref
+        self.num = num
+
+class NetlistNet:
+    """Simple container for netlist net information."""
+    def __init__(self, name, pins=None):
+        self.name = name
+        self.pins = pins or []
+
+class SimpleNamespace:
+    """Simple namespace object for sheetpath."""
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+def parse_netlist(netlist_filename):
+    """Parse a KiCad netlist file using simp_sexp."""
+    
+    class Netlist:
+        def __init__(self):
+            self.parts = []
+            self.nets = []
+    
+    with open(netlist_filename, 'r') as f:
+        netlist_data = f.read()
+    
+    # Parse the S-expression
+    parsed = simp_sexp.Sexp(netlist_data)
+    
+    netlist = Netlist()
+    
+    # Search for components using simp_sexp search
+    comp_nodes = parsed.search('export/components/comp')
+    for comp in comp_nodes:
+        ref_results = comp.search('ref')
+        value_results = comp.search('value')
+        footprint_results = comp.search('footprint')
+        
+        ref = ref_results.value if ref_results else None
+        value = value_results.value if value_results else None
+        footprint = footprint_results.value if footprint_results else None
+        
+        if ref and footprint:
+            part = NetlistPart(ref, value or "", footprint)
+            netlist.parts.append(part)
+    
+    # Search for nets using simp_sexp search
+    net_nodes = parsed.search('export/nets/net')
+    for net_node in net_nodes:
+        name_results = net_node.search('name')
+        net_name = name_results.value if name_results else None
+        
+        if net_name:
+            pins = []
+            # Search for all node entries within this net
+            node_entries = net_node.search('node')
+            for node in node_entries:
+                ref_results = node.search('ref')
+                pin_results = node.search('pin')
+
+                ref = ref_results.value if ref_results else None
+                pin_num = pin_results.value if pin_results else None
+                
+                if ref and pin_num:
+                    pins.append(NetlistPin(ref, pin_num))
+            
+            net = NetlistNet(net_name, pins)
+            netlist.nets.append(net)
+    
+    return netlist
+
 def kinet2pcb(netlist_origin, brd_filename, fp_lib_dirs=None):
     """Create a .kicad_pcb from a KiCad netlist file.
 
@@ -215,7 +297,7 @@ def kinet2pcb(netlist_origin, brd_filename, fp_lib_dirs=None):
     # Get the netlist.
     if isinstance(netlist_origin, type('')):
         # Parse the netlist into an object if given a file name string.
-        netlist = kinparse.parse_netlist(netlist_origin)
+        netlist = parse_netlist(netlist_origin)
     else:
         # otherwise, the netlist is already an object that can be processed directly.
         netlist = netlist_origin
@@ -268,7 +350,7 @@ def kinet2pcb(netlist_origin, brd_filename, fp_lib_dirs=None):
         try:
             # When handling a SKiDL Net object.
             pins = net.get_pins()
-        except TypeError:
+        except AttributeError:
             # When handling a ParseResults object.
             pins = net.pins
 
