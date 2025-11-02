@@ -2,6 +2,14 @@
 History
 =======
 
+1.1.3 (2025-11-02)
+------------------
+
+* Removed dependence upon kinparse. Now using simp_sexp to parse netlist files.
+* More robust searching for fp-lib-table file for multiple versions of KiCad on both Windows and Linux.
+* Python 3.6 or higher is now required.
+
+
 1.1.2 (2024-02-26)
 ------------------
 
