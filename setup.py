@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 __author__ = "Dave Vandenbout"
 __email__ = "dave@vdb.name"
-__version__ = "1.1.3"
+__version__ = "1.1.4"
 
 if "sdist" in sys.argv[1:]:
     with open("kinet2pcb/pckg_info.py", "w") as f:

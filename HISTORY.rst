@@ -2,6 +2,13 @@
 History
 =======
 
+1.1.4 (2025-11-03)
+------------------
+
+* Fixed os.path.join() usage when adding KiCad paths to sys.path.
+* Raise exception if KiCad installation is not found when importing pcbnew.
+
+
 1.1.3 (2025-11-02)
 ------------------
 
