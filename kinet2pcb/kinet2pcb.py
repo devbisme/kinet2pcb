@@ -15,10 +15,12 @@ if os.name == "posix":
     sys.path.append('/usr/lib/python3/dist-packages')
 elif os.name == "nt":
     for kicad_version in ("9.0", "8.0", "7.0", "6.0", "5.0"):
-        ki_pth = os.path.join(("C:\\Program Files\\KiCad", kicad_version))
+        ki_pth = os.path.join("C:\\Program Files\\KiCad", kicad_version)
         if os.path.isdir(ki_pth):
-            sys.path.extend((os.path.join((ki_pth, "bin")), os.path.join((ki_pth, "bin", "Lib", "site-packages"))))
+            sys.path.extend((os.path.join(ki_pth, "bin"), os.path.join(ki_pth, "bin", "Lib", "site-packages")))
             break
+    else:
+        raise Exception("Warning: Could not find KiCad installation to import pcbnew module.")
 
 import pcbnew
 import hierplace
