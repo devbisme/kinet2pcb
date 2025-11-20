@@ -311,8 +311,7 @@ def kinet2pcb(netlist_origin, brd_filename, fp_lib_dirs=None):
         fp_lib, fp_name = part.footprint.split(":")
 
         # Get the URI of the library directory.
-        lib_uri = fp_libs[fp_lib]
-
+        lib_uri = os.path.expandvars(fp_libs[fp_lib])
         # Create a module from the footprint file.
         fp = pcbnew.FootprintLoad(lib_uri, fp_name)
         if not fp:
